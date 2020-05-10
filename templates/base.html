@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+  <title>
+    {% if title %}{{ title }}
+    {% else %}MyLib Flask App
+    {% endif %}
+  </title>
+</head>
+<body>
+  <div>
+    <span>
+      <a href={{ url_for('main.index') }}>Home</a>
+    </span>
+  </div>
+
+  {% block content %}{% endblock %}
+</body>
+</html>

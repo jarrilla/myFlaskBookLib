@@ -1,0 +1,12 @@
+# no python compiled code
+/**/__pycache__
+
+# hide my env vars :)
+# required vars are listed in README
+.flaskenv
+
+# ignore all virtualenv folders
+venv*
+
+# ingore vscode settings
+.vscode
