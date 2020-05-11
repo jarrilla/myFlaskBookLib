@@ -1,7 +1,7 @@
 from flask import render_template, url_for
 
 from src.main import bp
-from src.book.model import Book
+from src.book.models import Book
 
 @bp.route('/')
 @bp.route('/index')
