@@ -4,6 +4,7 @@ import os
 baseDir = os.path.abspath(os.path.dirname(__file__))
 
 class TestConfig:
+  TESTING = True
   SQLALCHEMY_DATABASE_URI = 'sqlite://'
   SQLALCHEMY_TRACK_MODIFICATIONS = False
 
