@@ -1,9 +1,16 @@
-from flask import Flask
 from config import Config
+from flask import Flask
+from flask_login import LoginManager
+
+login = LoginManager()
+login.login_view = 'user.login'
+login.login_message = 'Login or Register to manage your library'
 
 def create_app(config_class=Config):
   app = Flask(__name__, template_folder='../templates')
   app.config.from_object(config_class)
+
+  login.init_app(app)
 
   from src.main import bp as main_bp
   from src.user import bp as user_bp
