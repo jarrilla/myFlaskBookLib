@@ -22,6 +22,7 @@ class UserCases(unittest.TestCase):
     db.session.add(u)
     db.session.commit()
 
+    self.assertTrue(u.id != None)
     self.assertEqual(u.username, 'user')
     self.assertEqual(u.email, 'user@user.com')
     self.assertEqual(u.is_verified, False)
