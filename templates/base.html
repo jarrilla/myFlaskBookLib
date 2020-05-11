@@ -8,11 +8,25 @@
   </title>
 </head>
 <body>
+  <!-- nav bar -->
   <div>
     <span>
       <a href={{ url_for('main.index') }}>Home</a>
     </span>
   </div>
+  <hr>
+
+  <!-- Show flashed messages here-->
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div>
+    {% for message in messages %}
+    <div>{{ message }}</div>
+    {% endfor %}
+  </div>
+  <hr>
+  {% endif %}
+  {% endwith %}
 
   {% block content %}{% endblock %}
 </body>
