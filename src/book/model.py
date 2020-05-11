@@ -6,6 +6,14 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+class Book(db.Model):
+  id = db.Column( db.Integer, primary_key=True )
+  title = db.Column( db.String(120), index=True, unique=True )
+  author = db.Column( db.String(64) )
+
+  def __repr__(self):
+    return '[Book: title={}, author={}]'.format( self.title, self.author )
+
 # UserBookEntry Model
 class UserBookEntry(db.Model):
   id = db.Column( db.Integer, primary_key=True )
