@@ -10,3 +10,6 @@ venv*
 
 # ingore vscode settings
 .vscode
+
+# ignore debug db
+app.db
