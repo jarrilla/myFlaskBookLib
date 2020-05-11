@@ -1,10 +1,10 @@
 from flask import render_template
 from flask_login import login_required
 
-from src.user.model import User
+from src.user.models import User
 
-from src.user_book_entry import bp
-from src.user_book_entry.model import UserBookEntry
+from src.book import bp
+from src.book.models import UserBookEntry
 
 @bp.route('/library/<username>')
 @login_required

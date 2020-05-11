@@ -1,8 +1,8 @@
 import unittest
 
 from config import TestConfig
-from src import create_app
-from src.book.model import db, Book
+from src import create_app, db
+from src.book.models import Book
 
 class BookCases(unittest.TestCase):
   def setUp(self):

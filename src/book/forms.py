@@ -5,7 +5,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, DateField, TextAreaField, SubmitField
 from wtforms.validators import ValidationError, DataRequired
-from src.user_book_entry.model import UserBookEntry
+from src.book.models import UserBookEntry
 
 # Basic UserBookEntry creation form
 # This also double as a 'Book' creation form. If the book the user is adding doesn't exist in Book db, we create it
