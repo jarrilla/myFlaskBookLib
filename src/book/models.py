@@ -25,8 +25,10 @@ class Book(db.Model):
 # 
 class UserBookEntry(db.Model):
   id = db.Column( db.Integer, primary_key=True )
-  date_purchased = db.Column( db.DateTime )
+  date_purchased = db.Column( db.Date )
   notes = db.Column( db.Text )
+
+  user_id = db.Column( db.Integer, db.ForeignKey('user.id') )
 
   book_id = db.Column( db.Integer, db.ForeignKey('book.id') )
   book = db.relationship('Book')

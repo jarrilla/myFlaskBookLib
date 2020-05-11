@@ -18,7 +18,8 @@ class User(UserMixin, db.Model):
   username = db.Column( db.String(64), index=True, unique=True )
   email = db.Column( db.String(120), index=True, unique=True )
   password_hash = db.Column( db.String(128) )
-  is_verified = db.Column( db.Boolean, default=False, nullable=False )
+  is_verified = db.Column( db.Boolean, default=False )
+  library = db.relationship('UserBookEntry', backref='owner', lazy='dynamic')
 
   def __repr__(self):
     return '[User: id={}, username={}]'.format( self.id, self.username )
