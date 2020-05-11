@@ -3,7 +3,7 @@ from flask_login import current_user, login_user, login_required, logout_user
 from werkzeug.urls import url_parse
 
 from src.user.forms import RegistrationForm, LoginForm
-from src.user.model import db, User
+from src.user.models import db, User
 from src.user import bp
 
 # User registration route

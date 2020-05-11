@@ -1,8 +1,8 @@
 import unittest
 
 from config import TestConfig
-from src import create_app
-from src.user.model import db, User
+from src import create_app, db
+from src.user.models import User
 
 class UserCases(unittest.TestCase):
   def setUp(self):

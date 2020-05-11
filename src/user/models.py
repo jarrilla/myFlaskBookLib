@@ -2,9 +2,7 @@ from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from src import login
-
-db = SQLAlchemy()
+from src import login, db
 
 # user_loader callback
 @login.user_loader
