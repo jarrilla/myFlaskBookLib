@@ -19,7 +19,6 @@ class UserCases(unittest.TestCase):
   def test_user_creation(self):
     u = User(username='user', email='user@user.com')
     u.set_password('password')
-
     db.session.add(u)
     db.session.commit()
 
