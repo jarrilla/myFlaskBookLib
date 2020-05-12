@@ -34,10 +34,12 @@ def create_app(config_class=Config):
 
 
   # Register blueprints
+  from src.errors import bp as errs_bp
   from src.main import bp as main_bp
   from src.user import bp as user_bp
   from src.book import bp as book_bp
 
+  app.register_blueprint(errs_bp)
   app.register_blueprint(main_bp)
   app.register_blueprint(user_bp)
   app.register_blueprint(book_bp)
