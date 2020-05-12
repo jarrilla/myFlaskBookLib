@@ -6,7 +6,6 @@ from src.models import Book, UserBookEntry
 
 @bp.route('/')
 @bp.route('/index')
-@login_required
 def index():
   page = request.args.get('page', 1, type=int)
   books = Book.query.paginate(
