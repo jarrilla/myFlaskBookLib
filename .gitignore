@@ -13,3 +13,7 @@ venv*
 
 # ignore debug db & journal
 app.db*
+
+# ignore logs
+logs
+**/*.log
