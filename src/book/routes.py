@@ -12,8 +12,9 @@ from src.book.forms import NewEntryForm
 @login_required
 def library(username):
   user = User.query.filter_by(username=username).first_or_404()
-  
-  return render_template('library.html', user=user)
+  entries = user.collection().all()
+
+  return render_template('library.html', user=user, entries=entries)
 
 # edit_library()
 # Allow user to edit their collection
