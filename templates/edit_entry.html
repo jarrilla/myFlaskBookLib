@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Edit your personal details for</h2>
+<h3>{{ entry.book.title }} by {{ entry.book.author }}</h3>
+
+{% if form %}
+<form action='' method='post'>
+  {{ form.hidden_tag() }}
+  <p>
+    {{ form.date_purchased.label }}<br>
+    {{ form.date_purchased(type='date') }}<br>
+    {% for error in form.date_purchased.errors %}
+    <span style='color:red;'>[{{ error }}]</span>
+    {% endfor %}
+  </p>
+
+  <p>
+    {{ form.notes.label }}<br>
+    {{ form.notes(cols=50, rows=4) }}<br>
+    {% for error in form.notes.errors %}
+    <span style='color:red;'>[{{ error }}]</span>
+    {% endfor %}
+  </p>
+
+  <p>{{ form.submit() }}</p>
+</form>
+{% endif %}
+
+{% endblock %}
