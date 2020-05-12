@@ -15,9 +15,16 @@
 
 {% if user == current_user %}
 <div>
+{# IF user.is_verified #}
+  {% if user.is_verified %}
   <a href={{ url_for('book.edit_library') }}>Add To Your Collection</a>
   <p>or</p>
   <a href={{ url_for('book.share_library' )}}>Share Your Library</a>
+{# ELSE not user.is_verified #}
+  {% else %}
+  <p>Please verify your email address to add to your collection</p>
+  {% endif %}
+{# ENDIF user.is_verified #}
 </div>
 {% endif %}
 
