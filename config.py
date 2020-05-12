@@ -29,3 +29,6 @@ class Config:
   MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
   MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
   ADMINS = ['ja.dev.mailer@gmail.com']
+
+  # Heroku wants stdout logging
+  LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
