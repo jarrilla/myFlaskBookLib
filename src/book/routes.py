@@ -4,7 +4,8 @@ from flask_login import login_required, current_user
 from src import db
 from src.models import User, UserBookEntry
 from src.book import bp
-from src.book.forms import NewEntryForm, EditEntryMetaForm
+from src.book.email import send_share_email
+from src.book.forms import NewEntryForm, EditEntryMetaForm, ShareLibraryForm
 
 # library()
 # Show a specific user's library
@@ -116,3 +117,18 @@ def remove_entry(entry_id):
     flash('Book has been removed from your collection.')
 
   return redirect( url_for('book.library', username=current_user.username) )
+
+# share_library()
+# Share current_user's library with friends
+@bp.route('/share_library', methods=['GET', 'POST'])
+@login_required
+def share_library():
+  form = ShareLibraryForm()
+  if form.validate_on_submit():
+    recipient = form.recipient.data
+    send_share_email(user=current_user, recipient=recipient)
+    flash('Email has been sent!')
+
+    return redirect( url_for('book.library', username=current_user.username) )
+
+  return render_template('share_library.html', form=form)
