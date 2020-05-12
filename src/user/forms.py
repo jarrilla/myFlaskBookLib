@@ -4,7 +4,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
-from src.user.models import User
+from src.models import User
 
 # Basic User registration form
 # Username, Email, Password are all required
