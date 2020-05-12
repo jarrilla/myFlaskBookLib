@@ -1,8 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request
 from flask_login import login_required, current_user
 
+from src import db
 from src.models import User, UserBookEntry
-
 from src.book import bp
 from src.book.forms import NewEntryForm
 
@@ -27,6 +27,16 @@ def edit_library():
     date_purchased = form.date_purchased.data
     notes = form.notes.data
 
-    current_user.add_entry_to_collection(title=title, author=author, date_purchased=date_purchased, notes=notes)
+    entry = current_user.add_entry_to_collection(
+      title=title, author=author, date_purchased=date_purchased, notes=notes
+    )
+
+    if entry is not None:
+      try:
+        db.session.commit()
+      except Exception as e:
+        flash('Error adding book your collection.')
+
+      return redirect( url_for('book.library', username=current_user.username) )
     
   return render_template('edit_library.html', user=current_user, form=form)
