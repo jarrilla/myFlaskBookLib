@@ -11,7 +11,7 @@ If setting up for first time, install requirements with:
 Then setup DB with:
 > flask db upgrade
 
-I also set u the following script to run in DEBUG mode
+I also set up the following script to run in DEBUG mode
 
 windows:
 >\> ./bin/dev.ps1
