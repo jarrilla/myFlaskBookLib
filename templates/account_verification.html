@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+{# IF success #}  
+  {% if success %}
+  <p>Your account has been verified!</p>
+  {% else %}
+  <p>The token you provided is either expired or invalid. Try re-sending a verification email.</p>
+  {% endif %}
+{# ENDIF success #}
+</div>
+
+
+{% endblock %}
