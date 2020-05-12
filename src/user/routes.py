@@ -5,6 +5,7 @@ from werkzeug.urls import url_parse
 from src import db
 from src.models import User
 from src.user import bp
+from src.user.email import send_verification_email
 from src.user.forms import RegistrationForm, LoginForm
 
 # User registration route
@@ -18,7 +19,11 @@ def register():
     user.set_password(form.password.data)
     db.session.add(user)
     db.session.commit()
+
+    # send a verify_account email
+    send_verification_email(user)
     flash('You have succesfully registered! Check your email to verify your account.')
+    
     return redirect( url_for('user.login') )
     
   return render_template('register.html', title='Register', form=form)
