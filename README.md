@@ -4,10 +4,19 @@ Basic Flask app emulating a personal library.
 
 Registered users can add book entries to their library and add notes to any title in their virtual library.
 
+### Setup
+If setting up for first time, install requirements with:
+> pip install -r requirements.txt
 
-### To run in DEBUG mode
+Then setup DB with:
+> flask db upgrade
+
+I also set u the following script to run in DEBUG mode
+
 windows:
 >\> ./bin/dev.ps1
+This script assumes your venv is namved 'venv'
+
 
 ### Structure
 This project is split into 4 modules:
