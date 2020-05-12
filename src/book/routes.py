@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, current_app
 from flask_login import login_required, current_user
 
 from src import db
@@ -12,9 +12,18 @@ from src.book.forms import NewEntryForm, EditEntryMetaForm
 @login_required
 def library(username):
   user = User.query.filter_by(username=username).first_or_404()
-  entries = user.collection().all()
 
-  return render_template('library.html', user=user, entries=entries)
+  page = request.args.get('page', 1, type=int)
+  entries = user.collection().paginate(
+    page,
+    current_app.config['ENTRIES_PER_PAGE'],
+    False
+  )
+
+  next_url = url_for( 'book.library', username=username, page=entries.next_num ) if entries.has_next else None
+  prev_url = url_for( 'book.library', username=username, page=entries.prev_num ) if entries.has_prev else None
+
+  return render_template('library.html', user=user, entries=entries.items, next_url=next_url, prev_url=prev_url)
 
 # edit_library()
 # Allow user to edit their collection
@@ -73,3 +82,37 @@ def edit_entry(entry_id):
     form.notes.data = entry.notes
 
   return render_template('edit_entry.html', entry=entry, form=form)
+
+# add_to_lib()
+# Add a specified book to user's collection
+@bp.route('/add_to_lib/<int:book_id>')
+@login_required
+def add_to_lib(book_id):
+
+  result = current_user.insert_book_id_to_collection(book_id)
+  db.session.commit()
+
+  if result is None:
+    flash('Error occurred adding book to your library.')
+  elif result is True:
+    flash('Book was added to your collection!')
+  else:
+    flash('That book is already in your collection.')
+  
+  return redirect( url_for('book.library', username=current_user.username) )
+
+# remove_entry()
+# Remove a specified book entry from user's collection
+@bp.route('/remove_entry/<int:entry_id>')
+@login_required
+def remove_entry(entry_id):
+  entry = UserBookEntry.query.get(entry_id)
+  if entry.owner != current_user:
+    flash('You do not have permission to access that resource!')
+
+  else:
+    db.session.delete(entry)
+    db.session.commit()
+    flash('Book has been removed from your collection.')
+
+  return redirect( url_for('book.library', username=current_user.username) )
