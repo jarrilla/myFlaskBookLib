@@ -5,15 +5,15 @@
   Hello World!
 </div>
 
-{% if books %}
+{% if entries %}
 <div>
   <h3>Browse through books other people have added to their libraries.</h3>
 
   <table style='border-collapse:collapse;'>
-    {% for book in books %}
+    {% for entry in entries %}
     <tbody style='border:1px solid black;'>
       <tr>
-        <td>{{ book.title }}</td>
+        <td>{{ entry.book.title }}</td>
 
         {% if not current_user.is_anonymous %}
         <td rowspan='2'>
@@ -22,7 +22,7 @@
         {% endif %}
       </tr>
       <tr>
-        <td>by {{ book.author }}</td>
+        <td>by {{ entry.book.author }}</td>
       </tr>
     </tbody>
     {% endfor %}
