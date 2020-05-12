@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from src import db
 from src.models import User, UserBookEntry
 from src.book import bp
-from src.book.forms import NewEntryForm
+from src.book.forms import NewEntryForm, EditEntryMetaForm
 
 # library()
 # Show a specific user's library
@@ -41,3 +41,35 @@ def edit_library():
       return redirect( url_for('book.library', username=current_user.username) )
     
   return render_template('edit_library.html', user=current_user, form=form)
+
+# edit_entry()
+# Allow user to edit a specific entry
+@bp.route('/edit_entry/<int:entry_id>', methods=['GET', 'POST'])
+@login_required
+def edit_entry(entry_id):
+  entry = UserBookEntry.query.get(entry_id)
+  if entry.owner != current_user:
+    flash('You do not have permission to access that resource.')
+    return redirect( url_for('book.library', username=current_user.username) )
+
+  form = EditEntryMetaForm()
+  if form.validate_on_submit():
+    date_purchased = form.date_purchased.data
+    notes = (form.notes.data).strip()
+
+    if date_purchased is not None:
+      entry.date_purchased = date_purchased
+    if notes != '':
+      entry.notes = notes
+
+    if date_purchased is not None or notes != '':
+      db.session.commit()
+      flash('Successfully edited your entry for {}'.format(entry.book.title))
+    
+    return redirect( url_for('book.library', username=current_user.username) )
+
+  elif request.method == 'GET':
+    form.date_purchased.data = entry.date_purchased
+    form.notes.data = entry.notes
+
+  return render_template('edit_entry.html', entry=entry, form=form)
