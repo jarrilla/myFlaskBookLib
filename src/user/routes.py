@@ -2,8 +2,8 @@ from flask import flash, render_template, url_for, redirect, request
 from flask_login import current_user, login_user, login_required, logout_user
 from werkzeug.urls import url_parse
 
+from src import db
 from src.models import User
-
 from src.user import bp
 from src.user.forms import RegistrationForm, LoginForm
 
