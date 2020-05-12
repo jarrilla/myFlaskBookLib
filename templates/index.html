@@ -2,7 +2,11 @@
 
 {% block content %}
 <div>
-  Hello World!
+  Welcome to MyFlaskLib --
+  <a href={{ url_for('user.login') }}>Login</a>
+  or
+  <a href={{url_for('user.register') }}>Register</a>
+  to manage your library!
 </div>
 
 {% if books %}
