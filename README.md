@@ -15,6 +15,7 @@ I also set up the following script to run in DEBUG mode
 
 windows:
 >\> ./bin/dev.ps1
+
 This script assumes your venv is namved 'venv'
 
 
