@@ -19,4 +19,5 @@ class Config:
   SQLALCHEMY_TRACK_MODIFICATIONS = False
 
   # entries to show per page
-  ENTRIES_PER_PAGE=20
+  # this is intentionally a low number to showcase the feature
+  ENTRIES_PER_PAGE=5
