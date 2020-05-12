@@ -20,3 +20,11 @@ class NewEntryForm(FlaskForm):
 # We don't need custom validators for Title b/c even though they will be 'unique' we don't want to bog down the user
 #   if they're trying to add a book that matches an existing entry.
 # If a match is found, we simply add it.
+
+
+# Basic form to edit UserBookEntry metadata
+# Both of these fields are optional; no validators necessary
+class EditEntryMetaForm(FlaskForm):
+  date_purchased = DateField('Date Purchased', validators=[Optional()])
+  notes = TextAreaField('Notes')
+  submit = SubmitField('Submit')
