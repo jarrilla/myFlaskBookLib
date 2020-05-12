@@ -23,6 +23,6 @@ This project is split into 4 modules:
 For verification emails, email logging, & library sharing
 - **MAIL_SERVER**: (e.g. *smtp.googlemail.com*)
 - **MAIL_PORT**: (e.g. 587)
-- **MAIL_USE_TLS**: (leave empty if no)
+- **MAIL_USE_TLS**: leave empty if no
 - **MAIL_USERNAME**: \<your email login\>
 - **MAIL_PASSWORD**: \<your email pw\>
