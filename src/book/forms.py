@@ -1,18 +1,18 @@
-# user_book_entry.forms.py
+# book.forms.py
 # Forms used by UserBookEntry endpoints
 # Create new entries or edit existing ones.
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, DateField, TextAreaField, SubmitField
-from wtforms.validators import ValidationError, DataRequired
-from src.book.models import UserBookEntry
+from wtforms.validators import ValidationError, DataRequired, Optional
+from src.models import UserBookEntry
 
 # Basic UserBookEntry creation form
 # This also double as a 'Book' creation form. If the book the user is adding doesn't exist in Book db, we create it
 class NewEntryForm(FlaskForm):
   title = StringField('Book Title', validators=[DataRequired()])
   author = StringField('Book Auhtor', validators=[DataRequired()])
-  date_purchased = DateField('Date Purchased')
+  date_purchased = DateField('Date Purchased', validators=[Optional()])
   notes = TextAreaField('Notes')
   submit = SubmitField('Add')
 
