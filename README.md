@@ -28,6 +28,7 @@ For verification emails, email logging, & library sharing
 - **MAIL_PASSWORD**: \<your email pw\>
 
 ### Some other notes
+* This is very basic, there isn't a single ounce of reactive components nor asynchronous render. Everything is re-rendered using POST/REDIRECT/GET
 * I separated my /templates from /src since I like to keep my app logic separate from front end, though I saw a lot of flask apps online tend to put have /src/templates instead.
 * I initially wanted to have a fully modular app in which each module would hold models, tests, etc.. but I couldn't figure out how to get Flask-Migrate to play along with that so I had to load all models from the root directory instead.
 * Things this is missing:
