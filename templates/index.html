@@ -3,10 +3,17 @@
 {% block content %}
 <div>
   Welcome to MyFlaskLib --
+  <hr>
+  {% if current_user.is_anonymous %}
   <a href={{ url_for('user.login') }}>Login</a>
   or
   <a href={{url_for('user.register') }}>Register</a>
   to manage your library!
+  {% else %}
+  Navigate to
+  <a href={{ url_for('book.library', username=current_user.username) }}>your library</a>
+  to manage your collection!
+  {% endif %}
 </div>
 
 {% if books %}
