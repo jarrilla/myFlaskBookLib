@@ -5,29 +5,42 @@
   Hello World!
 </div>
 
-{% if entries %}
+{% if books %}
 <div>
+  <!-- I didn't figure out the proper query for this..
+    The idea was to only show books in other people's collections which didn't appear in your own
+  -->
   <h3>Browse through books other people have added to their libraries.</h3>
 
   <table style='border-collapse:collapse;'>
-    {% for entry in entries %}
+    {% for book in books %}
     <tbody style='border:1px solid black;'>
       <tr>
-        <td>{{ entry.book.title }}</td>
+        <td>{{ book.title }}</td>
 
         {% if not current_user.is_anonymous %}
         <td rowspan='2'>
-          <button>Add to my Lib</button>
+          <a href={{ url_for('book.add_to_lib', book_id=book.id) }}>Add To Library</a>
         </td>
         {% endif %}
       </tr>
       <tr>
-        <td>by {{ entry.book.author }}</td>
+        <td>by {{ book.author }}</td>
       </tr>
     </tbody>
     {% endfor %}
   </table>
 </div>
 {% endif %}
+
+<ul>
+  {% if prev_url %}
+  <li><a href={{ prev_url }}>Previous</a></li>
+  {% endif %}
+
+  {% if next_url %}
+  <li><a href={{ next_url }}>Next</a></li>
+  {% endif %}
+</ul>
 
 {% endblock %}
