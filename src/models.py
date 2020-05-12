@@ -33,16 +33,22 @@ class User(UserMixin, db.Model):
   def check_password(self, password):
     return check_password_hash(self.password_hash, password)
 
+  # Get a user's user_book_entry collection (i.e. library) QUERY
+  # We return the query so they can decided how to use it (all, paginate, etc..)
   def collection(self):
     return UserBookEntry.query.filter_by(user_id=self.id)
 
+  # Get a UserBookEntry given a book object
   def get_collection_entry_from_book(self, book):
     return self.library.filter_by(book_id=book.id).first()
 
+  # Check if a given book is in the user's collection
   def is_book_in_collection(self, book):
     return self.get_collection_entry_from_book(book) is not None
 
-  # Add a UserBookEntry to the user's collection.
+  # Attempt to add a UserBookEntry to the user's collection.
+  # Will not duplicate entry if one already exists
+  # Returns the UserBookEntry object matching the given parameters
   def add_entry_to_collection(self, title, author, date_purchased=None, notes=None):
     # get Book entity if it exists
     book = Book.query.filter_by(title=title, author=author).first()
