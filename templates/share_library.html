@@ -1,0 +1,27 @@
+{# share_library.html
+ # Allow users to send a link to their collection to whichever emails they provide
+ #}
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Share Your Collection with a Friend</h1>
+
+<div>
+  {%if form %}
+  <form action='' method='post'>
+    {{ form.hidden_tag() }}
+    <p>
+      {{ form.recipient.label }}<br>
+      {{ form.recipient(size=120) }}<br>
+      {% for error in form.recipient.errors %}
+      <span style='color:red;'>[{{ error }}]</span>
+      {% endfor %}
+    </p>
+
+    <p>{{ form.submit() }}</p>
+  </form>
+  {% endif %}
+</div>
+
+{% endblock %}
