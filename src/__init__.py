@@ -19,8 +19,7 @@ def create_app(config_class=Config):
   login.init_app(app)
 
   # Create DB resources
-  from src.user.models import User
-  from src.book.models import Book, UserBookEntry
+  from src.models import Book, User, UserBookEntry
 
   db.init_app(app)
   Migrate(app, db)
