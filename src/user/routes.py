@@ -23,7 +23,7 @@ def register():
     # send a verify_account email
     send_verification_email(user)
     flash('You have succesfully registered! Check your email to verify your account.')
-    
+
     return redirect( url_for('user.login') )
     
   return render_template('register.html', title='Register', form=form)
@@ -61,3 +61,17 @@ def login():
 def logout():
   logout_user()
   return redirect( url_for('main.index') )
+
+
+# verify_account()
+# Verify a 
+@bp.route('/verify_account/<token>')
+def verify_account(token):
+  user = User.verify_verification_token(token)
+  success = user is not None
+
+  if success:
+    user.is_verified = True
+    db.session.commit()
+
+  return render_template('account_verification.html', success=success)
