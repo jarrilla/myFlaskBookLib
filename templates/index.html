@@ -9,21 +9,24 @@
 <div>
   <h3>Browse through books other people have added to their libraries.</h3>
 
-  {% for book in books %}
-  <div style='border:1px solid black;'>
-    <table>
+  <table style='border-collapse:collapse;'>
+    {% for book in books %}
+    <tbody style='border:1px solid black;'>
       <tr>
         <td>{{ book.title }}</td>
+
+        {% if not current_user.is_anonymous %}
         <td rowspan='2'>
           <button>Add to my Lib</button>
         </td>
+        {% endif %}
       </tr>
       <tr>
         <td>by {{ book.author }}</td>
       </tr>
-    </table>
-  </div>
-  {% endfor %}
+    </tbody>
+    {% endfor %}
+  </table>
 </div>
 {% endif %}
 
