@@ -1,0 +1,8 @@
+Your friend {{ user.username }} wants to share a MyFlaskLib book collection with you!
+
+Follow the link below to check it out!
+
+{{ url_for('book.library', username=user.username, _external=True) }}
+
+
+MyFlaskLib
