@@ -35,7 +35,7 @@
       {% for entry in entries %}
       <tr>
         <td>
-          <a href=''>Edit</a>
+          <a href={{ url_for('book.edit_entry', entry_id=entry.id) }}>Edit</a>
         </td>
         <td>{{ entry.book.title }}</td>
         <td>{{ entry.book.author }}</td>
