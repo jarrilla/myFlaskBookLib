@@ -1,0 +1,53 @@
+{# edit_library.html
+ # Allow users to edit their collection.
+ # Includes a form to manually add entires
+ # Or they can browse their collection and edit single items
+#}
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Edit Your Collection</h1>
+
+<!-- Manually add a title to your collection -->
+<div>
+  {% if form %}
+  <form action='' method='post'>
+    {{ form.hidden_tag() }}
+    <p>
+      {{ form.title.label }}<br>
+      {{ form.title(size=64) }}<br>
+      {% for error in form.title.errors %}
+      <span style='color:red;'>[{{ error }}]</span>
+      {% endfor %}
+    </p>
+
+    <p>
+      {{ form.author.label }}<br>
+      {{ form.author(size=32) }}<br>
+      {% for error in form.author.errors %}
+      <span style='color:red;'>[{{ error }}]</span>
+      {% endfor %}
+    </p>
+
+    <p>
+      {{ form.date_purchased.label }}<br>
+      {{ form.date_purchased(type='date') }}<br>
+      {% for error in form.date_purchased.errors %}
+      <span style='color:red;'>[{{ error }}]</span>
+      {% endfor %}
+    </p>
+
+    <p>
+      {{ form.notes.label }}<br>
+      {{ form.notes(cols=50, rows=4) }}<br>
+      {% for error in form.notes.errors %}
+      <span style='color:red;'>[{{ error }}]</span>
+      {% endfor %}
+    </p>
+
+    <p>{{ form.submit() }}</p>
+  </form>
+  {% endif %}
+</div>
+{% endblock %}
