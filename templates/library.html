@@ -19,4 +19,37 @@
 </div>
 {% endif %}
 
+{% if entries %}
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Date Purchased</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for entry in entries %}
+      <tr>
+        <td>
+          <a href=''>Edit</a>
+        </td>
+        <td>{{ entry.book.title }}</td>
+        <td>{{ entry.book.author }}</td>
+        <td>
+          {% if entry.date_purchased %}
+          {{ entry.date_purchased }}
+          {% endif %}
+        </td>
+        <td>{{ entry.notes }}</td>
+      <tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
 {% endblock %}
