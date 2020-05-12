@@ -1,5 +1,8 @@
+from flask import current_app
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+from time import time
+import jwt
 
 from src import login, db
 
@@ -32,6 +35,25 @@ class User(UserMixin, db.Model):
   # Used for login
   def check_password(self, password):
     return check_password_hash(self.password_hash, password)
+
+  # Get a long-form verification token
+  def get_verification_token(self, expires_in=8600):
+    return jwt.encode(
+      { 'verify_account': self.id, 'exp': time() + expires_in },
+      current_app.config['SECRET_KEY'],
+      algorithm='HS256'
+    ).decode('utf-8')
+
+  # Verify a given JWT
+  @staticmethod
+  def verify_verification_token(token):
+    try:
+      id = jwt.decode(token, current_app.config['SECRET_KEY'],
+        algorithms=['HS256']
+      )['verify_account']
+    except:
+      return
+    return User.query.get(id)
 
   # Get a user's user_book_entry collection (i.e. library) QUERY
   # We return the query so they can decided how to use it (all, paginate, etc..)
