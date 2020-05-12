@@ -7,4 +7,4 @@ To verify your account click on the following link:
 If you have not created an account on our page please simply ignore this message.
 
 
-MyFlaskApp
+MyFlaskLib
