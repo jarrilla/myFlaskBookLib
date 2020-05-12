@@ -90,15 +90,18 @@ def edit_entry(entry_id):
 @login_required
 def add_to_lib(book_id):
 
-  result = current_user.insert_book_id_to_collection(book_id)
-  db.session.commit()
-
-  if result is None:
-    flash('Error occurred adding book to your library.')
-  elif result is True:
-    flash('Book was added to your collection!')
+  if current_user.is_verified == False:
+    flash('You must verify your email to edit your collection!')
   else:
-    flash('That book is already in your collection.')
+    result = current_user.insert_book_id_to_collection(book_id)
+    db.session.commit()
+
+    if result is None:
+      flash('Error occurred adding book to your library.')
+    elif result is True:
+      flash('Book was added to your collection!')
+    else:
+      flash('That book is already in your collection.')
   
   return redirect( url_for('book.library', username=current_user.username) )
 
@@ -107,14 +110,18 @@ def add_to_lib(book_id):
 @bp.route('/remove_entry/<int:entry_id>')
 @login_required
 def remove_entry(entry_id):
-  entry = UserBookEntry.query.get(entry_id)
-  if entry.owner != current_user:
-    flash('You do not have permission to access that resource!')
 
+  if current_user.is_verified == False:
+    flash('You must verify your email to edit your collection!')
   else:
-    db.session.delete(entry)
-    db.session.commit()
-    flash('Book has been removed from your collection.')
+    entry = UserBookEntry.query.get(entry_id)
+    if entry.owner != current_user:
+      flash('You do not have permission to access that resource!')
+
+    else:
+      db.session.delete(entry)
+      db.session.commit()
+      flash('Book has been removed from your collection.')
 
   return redirect( url_for('book.library', username=current_user.username) )
 
@@ -123,6 +130,10 @@ def remove_entry(entry_id):
 @bp.route('/share_library', methods=['GET', 'POST'])
 @login_required
 def share_library():
+  if current_user.is_verified == False:
+    flash('You must verify your email to share your collection!')
+    return redirect( url_for('book.library', username=current_user.username) )
+
   form = ShareLibraryForm()
   if form.validate_on_submit():
     recipient = form.recipient.data
