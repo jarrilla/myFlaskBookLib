@@ -15,7 +15,7 @@
 
 {% if user == current_user %}
 <div>
-  <a href={{ url_for('book.edit_library') }}>Edit Your Collection</a>
+  <a href={{ url_for('book.edit_library') }}>Add To Your Collection</a>
 </div>
 {% endif %}
 
@@ -35,6 +35,7 @@
       {% for entry in entries %}
       <tr>
         <td>
+          <a href={{ url_for('book.remove_entry', entry_id=entry.id) }}>Remove</a>
           <a href={{ url_for('book.edit_entry', entry_id=entry.id) }}>Edit</a>
         </td>
         <td>{{ entry.book.title }}</td>
@@ -44,12 +45,22 @@
           {{ entry.date_purchased }}
           {% endif %}
         </td>
-        <td>{{ entry.notes }}</td>
+        <td>{{ entry.notes or '' }}</td>
       <tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
 {% endif %}
+
+<ul>
+  {% if prev_url %}
+  <li><a href={{ prev_url }}>Previous</a></li>
+  {% endif %}
+
+  {% if next_url %}
+  <li><a href={{ next_url }}>Next</a></li>
+  {% endif %}
+</ul>
 
 {% endblock %}
