@@ -26,3 +26,11 @@ For verification emails, email logging, & library sharing
 - **MAIL_USE_TLS**: leave empty if no
 - **MAIL_USERNAME**: \<your email login\>
 - **MAIL_PASSWORD**: \<your email pw\>
+
+### Some other notes
+* I separated my /templates from /src since I like to keep my app logic separate from front end, though I saw a lot of flask apps online tend to put have /src/templates instead.
+* I initially wanted to have a fully modular app in which each module would hold models, tests, etc.. but I couldn't figure out how to get Flask-Migrate to play along with that so I had to load all models from the root directory instead.
+* Things this is missing:
+  * Proper error handling without disrupting flow.
+  * Password reset
+  * Resend verification request
