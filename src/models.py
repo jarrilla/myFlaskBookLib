@@ -74,6 +74,23 @@ class User(UserMixin, db.Model):
 
     return entry
 
+  # Attempt to insert a new entry to user's collection by Book.id
+  # Returns None if failed (id is bogus or exception)
+  # Returns the (possibly new) entry otherwise
+  def insert_book_id_to_collection(self, book_id):
+    book = Book.query.get(book_id)
+    if book is None:
+      return None
+    
+    if self.is_book_in_collection(book):
+      return False
+
+    entry = UserBookEntry(user_id=self.id, book_id=book_id)
+    db.session.add(entry)
+    db.session.commit()
+    self.library.append(entry)
+
+    return True
 
 
 # - Every user can have multiple UserBookEntries
