@@ -4,7 +4,7 @@
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, DateField, TextAreaField, SubmitField
-from wtforms.validators import ValidationError, DataRequired, Optional
+from wtforms.validators import ValidationError, DataRequired, Optional, Email
 from src.models import UserBookEntry
 
 # Basic UserBookEntry creation form
@@ -28,3 +28,8 @@ class EditEntryMetaForm(FlaskForm):
   date_purchased = DateField('Date Purchased', validators=[Optional()])
   notes = TextAreaField('Notes')
   submit = SubmitField('Submit')
+
+# Basic form to share a link to a user's collection with specified emails
+class ShareLibraryForm(FlaskForm):
+  recipient = StringField('Email', validators=[Email()])
+  submit = SubmitField('Send')
