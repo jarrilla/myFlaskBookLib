@@ -34,3 +34,4 @@ For verification emails, email logging, & library sharing
   * Proper error handling without disrupting flow.
   * Password reset
   * Resend verification request
+  * Edit your email address (in case you registered with a bogus one)
